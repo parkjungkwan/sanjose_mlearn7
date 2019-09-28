@@ -31,5 +31,3 @@ class AiTrainer:
             batch.append(self.memory[i])
 
 
-if __name__ == '__main__':
-    pass
