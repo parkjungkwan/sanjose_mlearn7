@@ -5,6 +5,7 @@ from keras.layers import Dense, Dropout
 from keras.optimizers import RMSprop
 
 class KerasSample:
+
     def __init__(self):
         self.batch_size = 128
         self.num_classes = 10
