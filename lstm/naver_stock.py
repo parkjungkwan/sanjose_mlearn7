@@ -34,16 +34,22 @@ class Machine:
         df.dropna(inplace = True) # na 결측값 있는 행 제거
         return df
         
-    def rename_item_name(self):
-        df = self.test().rename(columns = {})
-
+    def rename_item_name(self, param):
+        df = param.rename(columns = {'날짜':'date', '종가':'close','전일비':'diff',
+                                           '시가':'open','고가':'high','저가':'low','거래량':'volumn'})
+        df[['close','diff','open','high','low','volumn']] =\
+            df[['close','diff','open','high','low','volumn']].astype(int)
+        df['date'] = pd.to_datetime(df['date'])
+        df = df.sort_values(by=['date'], ascending=True)
+        return df
 if __name__ == '__main__':
     print('>>>')
     m = Machine()
     def print_menu():
         print('0. EXIT\n'
               '1. 종목헤드\n'
-              '2. 종목컬럼명 보기')
+              '2. 종목컬럼명 보기\n'
+              '3. 전처리결과 보기')
         return input('CHOOSE ONE \n')
     while 1:
         menu = print_menu()
@@ -54,3 +60,5 @@ if __name__ == '__main__':
             m.code_df_head()
         elif menu == '2':
             print(m.test('005930'))
+        elif menu == '3':
+            print(m.rename_item_name(m.test('005930')))
